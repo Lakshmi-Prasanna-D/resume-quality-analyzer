@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resume Quality Analyzer Pro</title>
+    <meta name="description" content="A powerful, precise Resume Quality Analyzer that measures writing quality, action verbs, and skills.">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Header -->
+        <header class="glass-header">
+            <div class="logo">
+                <span class="logo-icon">📄</span>
+                <h1>Resume <span class="highlight">Analyzer</span></h1>
+            </div>
+            <p class="subtitle">Elevate your resume's clarity, precision, and impact.</p>
+        </header>
+
+        <!-- Main Workspace -->
+        <main class="workspace">
+            <section class="upload-section glass-panel" id="upload-panel">
+                <div class="upload-area" id="drop-zone">
+                    <div class="upload-icon-container">
+                        <svg class="upload-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path>
+                        </svg>
+                    </div>
+                    <h2>Upload your Resume</h2>
+                    <p>Drag & drop your PDF file here, or click to browse</p>
+                    <input type="file" id="pdf-upload" accept=".pdf" class="hidden-input">
+                    <button class="btn-primary" onclick="document.getElementById('pdf-upload').click()">Select PDF</button>
+                    <div id="file-info" class="file-info hidden">
+                        <span id="file-name" class="file-name"></span>
+                        <button id="remove-file" class="btn-icon">✕</button>
+                    </div>
+                </div>
+                
+                <button id="analyze-btn" class="btn-analyze hidden" disabled>Analyze Resume ✨</button>
+
+                <!-- Loading State -->
+                <div id="loading" class="loading-state hidden">
+                    <div class="spinner"></div>
+                    <p>Analyzing precision, verbs, and skills...</p>
+                </div>
+            </section>
+
+            <!-- Results Section -->
+            <section id="results-panel" class="results-section hidden">
+                <div class="results-header">
+                    <h2>Analysis Results</h2>
+                    <button class="btn-secondary" id="reset-btn">Analyze Another</button>
+                </div>
+
+                <div class="dashboard-grid">
+                    <!-- Score Card -->
+                    <div class="score-card glass-panel flex-center vertical">
+                        <h3 class="card-title">Precision Score</h3>
+                        <div class="score-circle">
+                            <svg viewBox="0 0 36 36" class="circular-chart">
+                                <path class="circle-bg"
+                                    d="M18 2.0845
+                                    a 15.9155 15.9155 0 0 1 0 31.831
+                                    a 15.9155 15.9155 0 0 1 0 -31.831"
+                                />
+                                <path class="circle" id="score-circle-path"
+                                    stroke-dasharray="0, 100"
+                                    d="M18 2.0845
+                                    a 15.9155 15.9155 0 0 1 0 31.831
+                                    a 15.9155 15.9155 0 0 1 0 -31.831"
+                                />
+                                <text x="18" y="20.35" class="percentage" id="score-text">0</text>
+                            </svg>
+                        </div>
+                        <p class="score-message" id="score-message">Great!</p>
+                    </div>
+
+                    <!-- Metrics Cards -->
+                    <div class="metrics-grid">
+                        <div class="metric-card glass-panel verb-card">
+                            <div class="metric-icon">🚀</div>
+                            <div class="metric-info">
+                                <h4>Strong Action Verbs</h4>
+                                <div class="tag-container" id="verbs-container">
+                                    <!-- Verbs generated via JS -->
+                                </div>
+                                <p id="verbs-count" class="metric-count-text">0 detected</p>
+                            </div>
+                        </div>
+
+                        <div class="metric-card glass-panel skills-card">
+                            <div class="metric-icon">💻</div>
+                            <div class="metric-info">
+                                <h4>Technical Skills</h4>
+                                <div class="tag-container" id="skills-container">
+                                    <!-- Skills generated via JS -->
+                                </div>
+                                <p id="skills-count" class="metric-count-text">0 technical keywords</p>
+                            </div>
+                        </div>
+
+                        <div class="metric-card glass-panel warning-card">
+                            <div class="metric-icon">⚠️</div>
+                            <div class="metric-info">
+                                <h4 class="warning-text">Weak Phrases Found</h4>
+                                <div class="tag-container error-tags" id="weak-phrases-container">
+                                    <!-- Weak phrases generated via JS -->
+                                </div>
+                                <p id="weak-phrases-empty" class="success-text hidden">No weak phrases detected. Great job!</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Suggestions Section -->
+                <div class="suggestions-panel glass-panel">
+                    <h3>💡 Actionable Suggestions</h3>
+                    <ul class="suggestion-list" id="suggestions-list">
+                        <!-- Suggestions via JS -->
+                    </ul>
+                </div>
+            </section>
+        </main>
+        
+        <footer>
+            <p>Resume Quality Analyzer &copy; 2026. Prioritize impact over keywords.</p>
+        </footer>
+    </div>
+    
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
